@@ -1,0 +1,10 @@
+{
+  "name": "overflowbar-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test --test-isolation=none tests/*.test.mjs",
+    "dev": "node scripts/serve.mjs"
+  }
+}
