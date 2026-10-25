@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, mkdirSync, cpSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, cpSync, copyFileSync, rmSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { createHash } from 'node:crypto';
 const root = resolve(import.meta.dirname, '..');
@@ -8,14 +8,15 @@ const output = join(root, 'dist');
 rmSync(output, { recursive: true, force: true });
 mkdirSync(output, { recursive: true });
 cpSync(join(root, 'assets'), join(output, 'assets'), { recursive: true });
+if (config.googleVerificationFile) copyFileSync(join(root, config.googleVerificationFile), join(output, config.googleVerificationFile));
 const template = readFileSync(join(root, 'src/layout.html'), 'utf8');
 const styleHash = createHash('sha256').update(readFileSync(join(root, 'assets/site.css'))).digest('hex').slice(0, 12);
 const scriptHash = createHash('sha256').update(readFileSync(join(root, 'assets/site.js'))).digest('hex').slice(0, 12);
 const pages = [
-  { path: '', source: 'home', title: 'OverflowBar — A Second Row for Your Mac Menu Bar', description: 'Give your Mac menu bar a second row. Choose icons to tuck away and open their original menus with OverflowBar, a free, open-source menu bar manager.', label: 'Home' },
-  { path: 'install/', source: 'install', title: 'Install OverflowBar for Mac — Download, Permissions & Compatibility', description: 'Install OverflowBar from GitHub or Homebrew. Check macOS compatibility, set up Accessibility and optional Screen Recording, and follow first-launch guidance.', label: 'Install' },
-  { path: 'help/', source: 'help', title: 'OverflowBar Help — Menu Bar Icons, Permissions & Troubleshooting', description: 'Get help with OverflowBar menu bar icons, missing previews, permissions, restoring icons, first launch, and macOS compatibility.', label: 'Help' },
-  { path: 'guides/mac-menu-bar-overflow/', source: 'guide', title: 'Mac Menu Bar Overflow — Crowded Icons, the Notch & a Second Row', description: 'Understand crowded Mac menu bar icons and notch-related limits. Learn what macOS settings can do and how a second-row menu bar manager can help.', label: 'Mac menu bar overflow' },
+  { path: '', source: 'home', title: 'OverflowBar — Mac Menu Bar Manager with a Second Row', description: 'Organize a crowded Mac menu bar with a second row for selected icons. OverflowBar is a free, open-source macOS menu bar manager.', label: 'Home' },
+  { path: 'install/', source: 'install', title: 'Install OverflowBar for Mac — Download & Setup', description: 'Download and install OverflowBar for macOS 15 and 26. Check compatibility, required Accessibility access, optional Screen Recording, and setup steps.', label: 'Install' },
+  { path: 'help/', source: 'help', title: 'OverflowBar Help — Missing Mac Menu Bar Icons & Fixes', description: 'Troubleshoot missing Mac menu bar icons, the OverflowBar arrow, previews, and permissions. Learn how to restore icons and check compatibility.', label: 'Help' },
+  { path: 'guides/mac-menu-bar-overflow/', source: 'guide', title: 'Mac Menu Bar Icons Hidden by the Notch? | OverflowBar', description: 'Find why Mac menu bar icons disappear near the notch, what macOS settings can do, and how a second-row manager can help with supported icons.', label: 'Mac menu bar overflow' },
   { path: '404.html', source: '404', title: 'Page Not Found — OverflowBar', description: 'Find your way back to OverflowBar, the free and open-source Mac menu bar manager with a second row.', label: 'Page not found', notFound: true }
 ];
 for (const page of pages) {

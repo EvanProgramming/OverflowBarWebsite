@@ -102,4 +102,6 @@ test('GitHub Pages output uses the owned domain and excludes temporary review pa
   assert.equal(read(join(dist, 'CNAME')).trim(), 'overflowbar.top');
   assert.ok(existsSync(join(dist, '.nojekyll')));
   assert.ok(!existsSync(join(dist, '__responsive-review.html')));
+  const verificationFile = JSON.parse(readFileSync(join(root, 'site.config.json'))).googleVerificationFile;
+  assert.equal(read(join(dist, verificationFile)).trim(), 'google-site-verification: ' + verificationFile);
 });
