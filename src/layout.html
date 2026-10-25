@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fafaf8">
+  <title>{{TITLE}}</title>
+  <meta name="description" content="{{DESCRIPTION}}">
+  <link rel="canonical" href="{{CANONICAL}}">
+  <meta name="robots" content="{{ROBOTS}}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OverflowBar">
+  <meta property="og:title" content="{{TITLE}}">
+  <meta property="og:description" content="{{DESCRIPTION}}">
+  <meta property="og:url" content="{{CANONICAL}}">
+  <meta property="og:image" content="{{ORIGIN}}/assets/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OverflowBar. Give your menu bar a second row. A real second row open beneath the Mac menu bar.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{TITLE}}">
+  <meta name="twitter:description" content="{{DESCRIPTION}}">
+  <meta name="twitter:image" content="{{ORIGIN}}/assets/social-preview.png">
+  <link rel="icon" href="/assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/app-icon.png">
+  <link rel="stylesheet" href="/assets/site.css?v={{STYLE_HASH}}">
+  {{PRELOAD}}
+  <script type="application/ld+json">{{SCHEMA}}</script>
+  <script src="/assets/site.js?v={{SCRIPT_HASH}}" defer></script>
+</head>
+<body class="{{BODY_CLASS}}">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9Z"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7Z"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  </defs></svg>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="OverflowBar home"><img src="/assets/app-icon.png" width="34" height="34" alt=""><span>OverflowBar</span></a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="/#how-it-works">How it works</a><a href="/install/">Install</a><a href="/help/">Help</a>
+    </nav>
+    <a class="nav-download" href="{{DOWNLOAD}}">Download for Mac <svg class="icon" aria-hidden="true"><use href="#i-download"/></svg></a>
+  </header>
+  <main id="main">{{CONTENT}}</main>
+  <footer class="site-footer">
+    <div class="footer-top"><a class="brand" href="/"><img src="/assets/app-icon.png" width="32" height="32" alt=""><span>OverflowBar</span></a><p>A little more room for your Mac.</p></div>
+    <div class="footer-bottom"><p>Free. Open source. Made for macOS.</p><nav aria-label="Footer"><a href="{{DOWNLOAD}}">Download</a><a href="{{REPOSITORY}}">GitHub</a><a href="/install/">Documentation</a><a href="/help/">Help</a><a href="/guides/mac-menu-bar-overflow/">Menu bar guide</a><a href="{{REPOSITORY}}/blob/main/PRIVACY.md">Privacy</a><a href="{{REPOSITORY}}/blob/main/LICENSE">License</a></nav></div>
+    <p class="attribution">OverflowBar is licensed under GPL-3.0. Its native engine includes work from <a href="https://github.com/jordanbaird/Ice">Ice</a> and <a href="https://github.com/thaw-app/Thaw">Thaw</a>. <a href="{{REPOSITORY}}/blob/main/THIRD_PARTY_NOTICES.md">Acknowledgements</a></p>
+  </footer>
+</body>
+</html>
