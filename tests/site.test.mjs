@@ -105,3 +105,37 @@ test('GitHub Pages output uses the owned domain and excludes temporary review pa
   const verificationFile = JSON.parse(readFileSync(join(root, 'site.config.json'))).googleVerificationFile;
   assert.equal(read(join(dist, verificationFile)).trim(), 'google-site-verification: ' + verificationFile);
 });
+
+test('the LLM summary documents verified product facts and only canonical public pages', () => {
+  const summary = read(join(dist, 'llms.txt'));
+  for (const fact of ['Accessibility permission is required', 'Screen Recording permission is optional', 'macOS 15 and macOS 26', 'macOS 27 and later', 'not notarized', 'GPL-3.0', 'Ice', 'Thaw', 'does not provide search', 'overflowbar.top']) assert.ok(summary.includes(fact), 'Missing verified LLM fact: ' + fact);
+  for (const route of routes) assert.ok(summary.includes(origin + '/' + route), 'Missing canonical page: /' + route);
+  assert.ok(summary.includes('https://github.com/EvanProgramming/OverflowBar/releases/latest'));
+  assert.ok(!summary.includes('profiles, or a global toggle shortcut coming soon'));
+});
+
+test('the IndexNow key is a matching 32-character hexadecimal root file', () => {
+  const key = JSON.parse(readFileSync(join(root, 'site.config.json'))).indexNowKey;
+  assert.match(key, /^[a-f0-9]{32}$/);
+  assert.equal(read(join(dist, key + '.txt')).trim(), key);
+});
+
+test('the guide states icon support limits and links to help and compatibility', () => {
+  const html = read(join(dist, 'guides/mac-menu-bar-overflow/index.html'));
+  const answer = html.slice(html.indexOf('<article class="document-content">'), html.indexOf('<section id="space">'));
+  assert.match(answer, /selected supported icons/i);
+  assert.match(answer, /cannot manage every icon hidden by a MacBook notch/i);
+  assert.match(answer, /protected controls/i);
+  assert.match(answer, /href="\/help\/"/);
+  assert.match(answer, /href="\/install\/#compatibility"/);
+});
+
+test('Pages notifies IndexNow after deployment and reports receipt without claiming indexing', () => {
+  const workflow = read(join(root, '.github/workflows/pages.yml'));
+  assert.match(workflow, /api\.indexnow\.org\/indexnow/);
+  assert.ok(workflow.includes("key=\"$(node -e 'console.log(JSON.parse(require(\"node:fs\").readFileSync(\"site.config.json\",\"utf8\")).indexNowKey)')\""));
+  assert.match(workflow, /200\|202/);
+  assert.match(workflow, /accepted notification/);
+  assert.match(workflow, /urlList/);
+  for (const route of routes) assert.ok(workflow.includes(origin + '/' + route));
+});

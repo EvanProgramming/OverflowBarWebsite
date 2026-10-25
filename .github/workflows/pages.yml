@@ -32,6 +32,19 @@ jobs:
     environment:
       name: github-pages
     steps:
+      - uses: actions/checkout@v4
       - name: Deploy GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Notify IndexNow after Pages deploy
+        shell: bash
+        run: |
+          key="$(node -e 'console.log(JSON.parse(require("node:fs").readFileSync("site.config.json","utf8")).indexNowKey)')"
+          payload="$(node -e 'process.stdout.write(JSON.stringify({host:"overflowbar.top",key:process.argv[1],keyLocation:`https://overflowbar.top/${process.argv[1]}.txt`,urlList:["https://overflowbar.top/","https://overflowbar.top/install/","https://overflowbar.top/help/","https://overflowbar.top/guides/mac-menu-bar-overflow/"]}))' "$key")"
+          status="$(curl --silent --show-error --output /tmp/indexnow-response.txt --write-out '%{http_code}' --request POST https://api.indexnow.org/indexnow --header 'Content-Type: application/json; charset=utf-8' --data "$payload")"
+          if [[ ! "$status" =~ ^(200|202)$ ]]; then
+            cat /tmp/indexnow-response.txt
+            echo "IndexNow submission failed with HTTP $status" >&2
+            exit 1
+          fi
+          echo "IndexNow accepted notification for four URLs (HTTP $status); this does not confirm indexing."
