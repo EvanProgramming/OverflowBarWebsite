@@ -1,0 +1,24 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>OverflowBar responsive review</title><style>body{font:14px system-ui;margin:24px;background:#eee;color:#111}h1{font-size:22px}.frames{display:flex;flex-wrap:wrap;align-items:start;gap:24px}article{background:white;padding:12px}h2{font-size:15px}iframe{border:0;display:block;background:white}pre{white-space:pre-wrap;max-width:800px;background:white;padding:16px;font:12px monospace;line-height:1.6}</style></head><body><h1>Temporary responsive review</h1><p>Each same-origin frame has its own genuine CSS viewport. This review page is excluded from indexing and the final deployment.</p><pre id="results" aria-live="polite">Loading actual browser layout measurements…</pre><div class="frames">
+<article><h2>Home — 390 × 844 CSS px</h2><iframe title="Mobile home at 390 CSS pixels" src="/" width="390" height="844" data-key="home390"></iframe></article>
+<article><h2>Install — 360 × 844 CSS px</h2><iframe title="Mobile installation at 360 CSS pixels" src="/install/" width="360" height="844" data-key="install360"></iframe></article>
+<article><h2>Help — 390 × 844 CSS px</h2><iframe title="Mobile help at 390 CSS pixels" src="/help/" width="390" height="844" data-key="help390"></iframe></article>
+<article><h2>Guide — 768 × 844 CSS px</h2><iframe title="Tablet guide at 768 CSS pixels" src="/guides/mac-menu-bar-overflow/" width="768" height="844" data-key="guide768"></iframe></article>
+<article><h2>Home — 1440 × 900 CSS px</h2><iframe title="Desktop home at 1440 CSS pixels" src="/" width="1440" height="900" data-key="home1440"></iframe></article>
+</div><script>
+const results={};
+function report(){document.getElementById('results').textContent=JSON.stringify(results,null,2)}
+for(const frame of document.querySelectorAll('iframe')){
+frame.addEventListener('load',()=>{
+try{
+const w=frame.contentWindow,d=w.document;
+results[frame.dataset.key]={url:w.location.href,width:w.innerWidth,scrollWidth:d.documentElement.scrollWidth,overflow:d.documentElement.scrollWidth>w.innerWidth,title:d.title,h1:d.querySelector('h1')?.textContent,images:[...d.images].filter(i=>!i.complete||!i.naturalWidth).map(i=>i.src),bodyText:d.querySelector('main')?.textContent.slice(0,180)};
+if(frame.dataset.key==='home390'){const button=d.querySelector('[data-row-state="closed"]');button?.click();results.home390.closedState=d.querySelector('[data-row-status]')?.textContent;d.querySelector('[data-row-state="open"]')?.click();results.home390.openState=d.querySelector('[data-row-status]')?.textContent;results.home390.storyStacked=!d.documentElement.classList.contains('story-motion');}
+report();
+if(w.PerformanceObserver){
+try{new w.PerformanceObserver(list=>{const entry=list.getEntries().at(-1);results[frame.dataset.key].lcpMs=Math.round(entry.startTime);report()}).observe({type:'largest-contentful-paint',buffered:true})}catch{}
+try{let shifts=0;new w.PerformanceObserver(list=>{for(const entry of list.getEntries())if(!entry.hadRecentInput)shifts+=entry.value;results[frame.dataset.key].cls=Number(shifts.toFixed(4));report()}).observe({type:'layout-shift',buffered:true})}catch{}
+}
+}catch(error){results[frame.dataset.key]={error:String(error)};report()}
+})
+}
+</script></body></html>
