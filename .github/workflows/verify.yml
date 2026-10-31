@@ -1,0 +1,18 @@
+name: Verify website
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Build static website
+        run: npm run build
+      - name: Check site and domain
+        run: npm test

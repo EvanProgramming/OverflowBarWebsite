@@ -19,6 +19,7 @@ const pages = [
   { path: 'install/', source: 'install', title: 'Install OverflowBar for Mac — Download & Setup', description: 'Download and install OverflowBar for macOS 15 and 26. Check compatibility, required Accessibility access, optional Screen Recording, and setup steps.', label: 'Install' },
   { path: 'help/', source: 'help', title: 'OverflowBar Help — Missing Mac Menu Bar Icons & Fixes', description: 'Troubleshoot missing Mac menu bar icons, the OverflowBar arrow, previews, and permissions. Learn how to restore icons and check compatibility.', label: 'Help' },
   { path: 'guides/mac-menu-bar-overflow/', source: 'guide', title: 'Mac Menu Bar Icons Hidden by the Notch? | OverflowBar', description: 'Find why Mac menu bar icons disappear near the notch, what macOS settings can do, and how a second-row manager can help with supported icons.', label: 'Mac menu bar overflow' },
+  { path: 'guides/mac-menu-bar-managers/', source: 'comparison', title: 'Mac Menu Bar Managers Compared: Choose What Fits', description: 'Compare Mac menu bar managers by second-row access, search, profiles, automation, permissions, compatibility, and how each workflow differs.', label: 'Mac menu bar manager comparison' },
   { path: '404.html', source: '404', title: 'Page Not Found — OverflowBar', description: 'Find your way back to OverflowBar, the free and open-source Mac menu bar manager with a second row.', label: 'Page not found', notFound: true }
 ];
 const localizedPages = pages.map(page => ({ ...page, path: 'zh/' + page.path, originalPath: page.path, title: metadata[page.source][0], description: metadata[page.source][1], label: metadata[page.source][2], language: 'zh-CN' }));
@@ -56,4 +57,4 @@ writeFileSync(join(output, 'CNAME'), new URL(config.origin).hostname + '\n');
 writeFileSync(join(output, '.nojekyll'), '');
 writeFileSync(join(output, '_headers'), '/assets/*\n  Cache-Control: public, max-age=86400\n  X-Content-Type-Options: nosniff\n/*\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: SAMEORIGIN\n');
 if (process.env.QA_PREVIEW === '1') writeFileSync(join(output, '__responsive-review.html'), readFileSync(join(root, 'scripts/mobile-preview.html')));
-console.log('Built eight localized static pages, localized 404 pages, crawl guidance, IndexNow verification, metadata, and product assets.');
+console.log('Built ten localized static pages, localized 404 pages, crawl guidance, IndexNow verification, metadata, and product assets.');
