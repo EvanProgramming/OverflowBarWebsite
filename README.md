@@ -35,3 +35,10 @@ Application licensing and upstream notices are linked from every page. Product s
 The tracked .openai/hosting.json binds this checkout to its Sites project. Never register this checkout again. Deploy the dist/ static output from the exact pushed commit.
 
 The Sites helper package was unavailable in the current executor. The publish-source.py script implements the equivalent ordinary Git synchronization with the native Sites credential passed only through hidden stdin. It stores no token in Git configuration or source files.
+
+
+## English and Simplified Chinese
+
+English URLs are retained; Chinese equivalents live under /zh/. Both are fully rendered at build time with self-canonical URLs, reciprocal hreflang links, localized metadata and internal navigation. Screenshots remain authentic, and English app control names in Chinese setup instructions refer to the actual application UI.
+
+The small language script runs in the head. A valid ?lang=en or ?lang=zh choice is saved in localStorage. Explicit /zh/ URLs stay Chinese unless the query explicitly selects another language. English entry pages use the saved choice, then the first supported language in navigator.languages, then a Chinese-region time zone only if browser languages cannot identify English or Chinese. All other cases default to English. No IP lookup, geolocation permission, or external language service is used. Storage/Intl failures are handled. Switching languages preserves the equivalent page and fragment. Chinese currently means Simplified Chinese (zh-Hans); zh-TW browser preferences also select this version.

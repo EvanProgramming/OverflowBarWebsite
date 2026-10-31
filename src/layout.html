@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{LANGUAGE}}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,6 +8,8 @@
   <title>{{TITLE}}</title>
   <meta name="description" content="{{DESCRIPTION}}">
   <link rel="canonical" href="{{CANONICAL}}">
+  {{ALTERNATES}}
+  <meta property="og:locale" content="{{OG_LOCALE}}">
   <meta name="robots" content="{{ROBOTS}}">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="OverflowBar">
@@ -24,6 +26,7 @@
   <meta name="twitter:image" content="{{ORIGIN}}/assets/social-preview.png">
   <link rel="icon" href="/assets/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="/assets/app-icon.png">
+  <script src="/assets/language.js?v={{LANGUAGE_HASH}}"></script>
   <link rel="stylesheet" href="/assets/site.css?v={{STYLE_HASH}}">
   {{PRELOAD}}
   <script type="application/ld+json">{{SCHEMA}}</script>
@@ -43,6 +46,7 @@
     <nav class="desktop-nav" aria-label="Main navigation">
       <a href="/#how-it-works">How it works</a><a href="/install/">Install</a><a href="/help/">Help</a>
     </nav>
+    {{LANGUAGE_SWITCH}}
     <a class="nav-download" href="{{DOWNLOAD}}">Download for Mac <svg class="icon" aria-hidden="true"><use href="#i-download"/></svg></a>
   </header>
   <main id="main">{{CONTENT}}</main>

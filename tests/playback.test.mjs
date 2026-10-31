@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
 
-test('a recording retains its paused frame and resumes from the same position', async () => {
+for (const language of ['en', 'zh-CN']) test('a recording retains its paused frame and resumes in ' + language, async () => {
   const classes = new Set();
   const label = { textContent: 'Play recording' };
   const attributes = new Map();
@@ -30,6 +30,7 @@ test('a recording retains its paused frame and resumes from the same position', 
     querySelector: query => query === 'video' ? video : button
   };
   const document = {
+    documentElement: { lang: language },
     querySelector: () => null,
     querySelectorAll: query => query === '.scene-media' ? [media] : [],
     addEventListener() {}
@@ -41,7 +42,7 @@ test('a recording retains its paused frame and resumes from the same position', 
   await button.click();
   assert.equal(video.paused, true);
   assert.ok(classes.has('is-playing'), 'Pause must keep the actual footage visible');
-  assert.equal(label.textContent, 'Resume');
+  assert.equal(label.textContent, language === 'en' ? 'Resume' : '继续播放');
   await button.click();
   assert.equal(video.paused, false);
   assert.equal(video.currentTime, 1.25, 'Resume must not restart the recording');
