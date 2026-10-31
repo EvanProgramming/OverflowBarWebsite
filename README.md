@@ -1,6 +1,6 @@
 # OverflowBar website
 
-Official product website for the open-source macOS app. Static English HTML is generated at build time. There are no runtime dependencies, tracking scripts, account flows, or client-side API requirements.
+Official product website for the open-source macOS app: https://overflowbar.top/. English and Simplified Chinese pages are generated as static HTML at build time. There are no runtime dependencies, tracking scripts, account flows, or client-side API requirements.
 
 ## Build and check
 
@@ -30,11 +30,9 @@ Review installation, permissions, troubleshooting, and release-check reports in 
 
 Application licensing and upstream notices are linked from every page. Product source: https://github.com/EvanProgramming/OverflowBar.
 
-## Publication
+## Deployment
 
-The tracked .openai/hosting.json binds this checkout to its Sites project. Never register this checkout again. Deploy the dist/ static output from the exact pushed commit.
-
-The Sites helper package was unavailable in the current executor. The publish-source.py script implements the equivalent ordinary Git synchronization with the native Sites credential passed only through hidden stdin. It stores no token in Git configuration or source files.
+GitHub Actions builds and tests the site, then deploys `dist/` to GitHub Pages when changes reach `main`. After deployment, the workflow notifies IndexNow about the ten public English and Chinese URLs; an accepted notification does not mean a search engine has indexed them.
 
 
 ## English and Simplified Chinese

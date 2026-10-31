@@ -41,7 +41,7 @@ test('Chinese links stay Chinese and redirects preserve page, query, and fragmen
   assert.equal(visit({ path: '/zh/help/', query: '?lang=en', hash: '#privacy' }).redirected, 'https://overflowbar.top/help/?lang=en#privacy');
 });
 test('all Chinese pages are statically translated and advertise language alternates', () => {
-  for (const route of ['', 'install/', 'help/', 'guides/mac-menu-bar-overflow/']) {
+  for (const route of ['', 'install/', 'help/', 'guides/mac-menu-bar-overflow/', 'guides/mac-menu-bar-managers/']) {
     const url = new URL('../dist/zh/' + route + 'index.html', import.meta.url);
     assert.ok(existsSync(url), 'Missing Chinese route: ' + route);
     const html = readFileSync(url, 'utf8');
@@ -51,6 +51,7 @@ test('all Chinese pages are statically translated and advertise language alterna
     assert.match(html, /hreflang="en"/);
     assert.match(html, /hreflang="zh-Hans"/);
     assert.match(html, /data-language="en"/);
+    if (route === 'guides/mac-menu-bar-managers/') assert.ok(html.includes('href="/zh/guides/mac-menu-bar-managers/"'));
     assert.equal((html.match(/<h1[ >]/g) || []).length, 1);
     for (const [, json] of html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)) assert.doesNotThrow(() => JSON.parse(json));
     for (const [, href] of html.matchAll(/(?:href|src|poster)="(\/[^"#]*)(?:#[^"]*)?"/g)) {
@@ -59,5 +60,5 @@ test('all Chinese pages are statically translated and advertise language alterna
     }
   }
   const sitemap = readFileSync(new URL('../dist/sitemap.xml', import.meta.url), 'utf8');
-  assert.equal((sitemap.match(/<url>/g) || []).length, 8);
+  assert.equal((sitemap.match(/<url>/g) || []).length, 10);
 });

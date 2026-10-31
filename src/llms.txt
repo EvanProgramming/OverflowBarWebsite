@@ -27,4 +27,5 @@
 - Installation and compatibility: {{ORIGIN}}/install/
 - Help and troubleshooting: {{ORIGIN}}/help/
 - Mac menu bar overflow guide: {{ORIGIN}}/guides/mac-menu-bar-overflow/
+- Mac menu bar manager comparison: {{ORIGIN}}/guides/mac-menu-bar-managers/
 - Latest official download: https://github.com/EvanProgramming/OverflowBar/releases/latest

@@ -7,7 +7,7 @@ import { gzipSync } from 'node:zlib';
 const root = resolve(import.meta.dirname, '..');
 const dist = join(root, 'dist');
 const origin = JSON.parse(readFileSync(join(root, 'site.config.json'))).origin;
-const routes = ['', 'install/', 'help/', 'guides/mac-menu-bar-overflow/'];
+const routes = ['', 'install/', 'help/', 'guides/mac-menu-bar-overflow/', 'guides/mac-menu-bar-managers/'];
 const read = path => existsSync(path) ? readFileSync(path, 'utf8') : '';
 
 test('each public route has complete, uniquely described HTML without JavaScript', () => {
@@ -128,6 +128,14 @@ test('the guide states icon support limits and links to help and compatibility',
   assert.match(answer, /protected controls/i);
   assert.match(answer, /href="\/help\/"/);
   assert.match(answer, /href="\/install\/#compatibility"/);
+});
+
+test('the manager comparison is sourced, transparent, and accurate for OverflowBar', () => {
+  const html = read(join(dist, 'guides/mac-menu-bar-managers/index.html'));
+  for (const text of ['Mac menu bar managers', 'OverflowBar team', '31 October 2026', 'Bartender', 'Ice', 'Thaw', 'Hidden Bar', 'Screen Recording', 'macOS 27 and later', 'does not provide item search']) assert.ok(html.includes(text), 'Missing comparison fact: ' + text);
+  for (const link of ['https://www.macbartender.com/', 'https://icemenubar.app/', 'https://github.com/thaw-app/Thaw', 'https://github.com/dwarvesf/hidden']) assert.ok(html.includes(link), 'Missing primary product source: ' + link);
+  assert.match(html, /rel="canonical" href="https:\/\/overflowbar\.top\/guides\/mac-menu-bar-managers\/"/);
+  assert.ok(read(join(dist, 'sitemap.xml')).includes('https://overflowbar.top/guides/mac-menu-bar-managers/'));
 });
 
 test('Pages notifies IndexNow after deployment and reports receipt without claiming indexing', () => {
